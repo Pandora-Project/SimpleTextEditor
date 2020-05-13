@@ -12,6 +12,21 @@ import pathlib
 
 
 def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
+    """
+    text editor
+
+    Arguments:
+        tekst (str) -- text given to format
+        space (bool) -- if True: removes two whitespaces 
+        space_irr (bool) -- if True: removes spaces not given in right places
+        lowercase (bool) -- if True: fixes wrong lowercases
+        errors (bool) -- if True: returns list of mistakes
+        info (bool) -- if True: gives info on formated text
+        write (bool) -- if True: writes return to .txt
+
+    Returns:
+        str -- string with all the options given in arguments
+    """
     assert type(tekst) is str
     assert type(space) and type(space_irr) and type(lowercase) and type(
         errors) and type(info) and type(write) is bool

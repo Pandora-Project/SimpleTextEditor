@@ -2,22 +2,49 @@
 # coding: utf-8
 
 # In[10]:
-
 separators = "\"\\!?.,{};:'\n()[-–|'<>«»~%“”„”_=*¯#+/]\f\t\r\v"
 
 
 def double_space_remover(tekst):
+    """
+    removes double spaces
+
+    Arguments:
+        tekst (str) -- given text to format
+
+    Returns:
+        str -- string without double whitespaces
+    """
     tekst = " ".join(tekst.split())
     return tekst
 
 
 def wrong_space_remover(tekst):
+    """
+    removes spaces not given in right places
+
+    Arguments:
+        tekst (str) -- given text to format
+
+    Returns:
+        str -- string without wrong whitespaces
+    """
     tekst = tekst.replace(" ,", ",").replace(
         " )", ")").replace("( ", "(").replace(" .", ".")
     return tekst
 
 
 def lowercase_fixer(tekst):
+    """
+    if letter after dot or dot and space is lowercase it will fix it
+    with exceptions
+
+    Arguments:
+        tekst (str) -- given text to format
+
+    Returns:
+        str -- string without wrong lowercases
+    """
     if tekst[0].islower():
         tekst = tekst[0].swapcase() + tekst[1:]
     for a in range(len(tekst)-1):
@@ -40,7 +67,15 @@ def lowercase_fixer(tekst):
 
 
 def check_mistakes(tekst):
+    """
+    checks for words in given dictionary and if they are not present adds them to mistakes
 
+    Arguments:
+        tekst (str) -- given text to check for mistakes
+
+    Returns:
+        str -- string with errors or one that says there are none
+    """
     for el in separators:
         tekst = tekst.replace(el, " ")
 
@@ -60,6 +95,15 @@ def check_mistakes(tekst):
 
 
 def info(tekst):
+    """
+    counts uppercases, lowercases, spaces, symbols, words and lines
+
+    Arguments:
+        tekst (str) -- given text to count
+
+    Returns:
+        str -- string with info
+    """
     text = tekst
     for el in separators:
         text = text.replace(el, " ")
@@ -90,6 +134,13 @@ def info(tekst):
 
 
 def write_txt(path, tekst):
+    """
+    writes txt files with errors, formated text and info about said text
+
+    Arguments:
+        path (str) -- path to given folder
+        tekst (str) -- text with info, mistakes and formated text
+    """
     with open(path, "wt") as file:
         file.write(tekst)
 

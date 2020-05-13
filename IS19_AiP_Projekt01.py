@@ -17,7 +17,7 @@ def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
 
     Arguments:
         tekst (str) -- text given to format
-        space (bool) -- if True: removes two whitespaces 
+        space (bool) -- if True: removes two whitespaces
         space_irr (bool) -- if True: removes spaces not given in right places
         lowercase (bool) -- if True: fixes wrong lowercases
         errors (bool) -- if True: returns list of mistakes
@@ -50,8 +50,9 @@ def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
             return tekst
 
 
-print(stedtxt("ala ,  ma  kota .a kot( ma Ale ). a ja np. nie . Proces Norymberski nie odbyl sie według ustalonej konwencji.",
-              space=True, space_irr=True, lowercase=True, errors=True, info=True, write=False))
-
+if __name__ == '__main__':
+    print(stedtxt("ala ,  ma  kota .a kot( ma Ale ). a ja np. nie . Proces Norymberski nie odbyl sie według ustalonej konwencji. \
+              Obi Wan nie zrobił niszego śle.",
+                  space=True, space_irr=True, lowercase=True, errors=True, info=True, write=True))
 
 # In[ ]:

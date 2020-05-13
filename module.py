@@ -141,6 +141,7 @@ def write_txt(path, tekst):
         path (str) -- path to given folder
         tekst (str) -- text with info, mistakes and formated text
     """
+
     with open(path, "wt") as file:
         file.write(tekst)
 

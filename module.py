@@ -4,7 +4,62 @@
 # In[10]:
 import codecs
 import os
+import sys
+import argparse
+
 separators = "\"\\!?.,{};:'\n()[-–|'<>«»~%“”„”_=*¯#+/]\f\t\r\v"
+
+
+def args():
+    """
+    Arguments parser for command-line
+    """
+    parser = argparse.ArgumentParser(
+        description="Python text beautifier. Formats texts.",
+        usage=f"python {sys.argv[0]} path/text [-s] [-sirr] [-lcs] [-e] [-i] [-w path]"
+    )
+    # Input file or text [required]
+    parser.add_argument("tekst", metavar="path/text", nargs=1,
+                        help="Path to source file/Text itself")
+    # Formats double spaces [optional]
+    parser.add_argument("-s", "--spaces", required=False, action="store_const", const=True,
+                        default=False, help="Removes exta spaces.")
+    # Formats wrong spaces [optional]
+    parser.add_argument("-sirr", "--spaces_irr", required=False, action="store_const", const=True,
+                        default=False, help="Formats spaces in the text.")
+    # Formatss capital letters [optional]
+    parser.add_argument("-lcs", "--lowercase", required=False, default=False, action="store_const",
+                        const=True, help="Capitalizes the letters where it's needed.")
+    # Finds errors [optional]
+    parser.add_argument("-e", "--errors", required=False, default=False,
+                        action="store_const", const=True, help="Finds Polish grammar mistakes.")
+    # Prints info [optional]
+    parser.add_argument("-i", "--info", required=False, default=False, action="store_const",
+                        const=True, help="Returns the info about the text.")
+    # Writes to file [optional]
+    parser.add_argument("-w", "--write", required=False, metavar="path",
+                        default=None, help="Path to output file('.txt')")
+
+    args = parser.parse_args()
+    tekst = args.tekst[0]
+    spaces = args.spaces
+    spaces_irr = args.spaces_irr
+    lowercase = args.lowercase
+    errors = args.errors
+    info = args.info
+    write = args.write
+    return tekst, spaces, spaces_irr, lowercase, errors, info, write
+
+
+def text_open(tekst):
+    """
+    Opens txt file 
+    """
+
+    with open(tekst, "rt", encoding="utf-8") as file:
+        tekst = file.read()
+
+    return tekst
 
 
 def double_space_remover(tekst):
@@ -47,17 +102,20 @@ def lowercase_fixer(tekst):
     Returns:
         str -- string without wrong lowercases
     """
+    sentence_end = ".?!"
     if tekst[0].islower():
         tekst = tekst[0].swapcase() + tekst[1:]
     for a in range(len(tekst)-1):
-        if tekst[a] == ".":
-            if tekst[a + 1] != " ":
-                tekst = tekst[:a+1] + tekst[a+1].upper() + tekst[a+2:]
-            else:
-                if tekst[a + 2] != " ":
-                    tekst = tekst[:a+2] + tekst[a+2].upper() + tekst[a+3:]
+        for j in sentence_end:
+            if tekst[a] == j:
+                if tekst[a + 1] != " ":
+                    tekst = tekst[:a+1] + tekst[a+1].upper() + tekst[a+2:]
+                else:
+                    if tekst[a + 2] != " ":
+                        tekst = tekst[:a+2] + tekst[a+2].upper() + tekst[a+3:]
+
     exceptions = ["np.", "inż.", "godz.", "tel.", "płn.",
-                  "ppoż.",                  "gosp.", "polit.", "ul."]
+                  "ppoż.", "gosp.", "polit.", "ul."]
     for k in exceptions:
         if tekst.find(k) == (-1):
             pass
@@ -107,6 +165,7 @@ def info(tekst):
         str -- string with info
     """
     text = tekst
+    count5 = text.count("\n") + 1
     for el in separators:
         text = text.replace(el, " ")
     words = len(text.replace("\n", " ").strip().split(
@@ -115,7 +174,6 @@ def info(tekst):
     count2 = 0
     count3 = 0
     count4 = 0
-    count5 = tekst.count("\n") + 1
     if len(tekst) == 0:
         count5 = 0
     for a in tekst:

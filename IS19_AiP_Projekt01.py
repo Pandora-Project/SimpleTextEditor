@@ -11,7 +11,7 @@ import module
 import pathlib
 
 
-def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
+def stedtxt(tekst, space=False, space_irr=False, lowercase=False, errors=False, info=False, write=False):
     """
     text editor
 
@@ -24,11 +24,11 @@ def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
         info (bool) -- if True: gives info on formated text
         write (bool) -- if True: writes return to .txt
 
+
         str -- string with all the options given in arguments
     """
+    tekst = module.text_open(tekst)
     assert type(tekst) is str
-    assert type(space) and type(space_irr) and type(lowercase) and type(
-        errors) and type(info) and type(write) is bool
     if len(tekst) == 1:
         return tekst
     else:
@@ -42,16 +42,21 @@ def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
             error = module.check_mistakes(tekst)
         if info:
             information = module.info(tekst)
-        tekst = str(error) + str(information) + str(tekst)
+        if errors and info:
+            tekst = str(error) + str(information) + str(tekst)
+        elif errors:
+            tekst = str(error) + str(tekst)
+        elif info:
+            tekst = str(information) + str(tekst)
         if write:
             module.write_txt(pathlib.Path().absolute(), tekst)
+            return ("File succesfully saved")
         else:
             return tekst
 
 
 if __name__ == '__main__':
-    print(stedtxt("ala ,  ma  kota .a kot( ma Ale ). a ja np. nie . Proces Norymberski nie odbyl sie według ustalonej konwencji. \
-              Obi Wan nie zrobił niszego śle.",
-                  space=True, space_irr=True, lowercase=True, errors=True, info=True, write=False))
+    args = module.args()
+    print(stedtxt(*args))
 
 # In[ ]:

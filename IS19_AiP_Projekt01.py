@@ -24,7 +24,6 @@ def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
         info (bool) -- if True: gives info on formated text
         write (bool) -- if True: writes return to .txt
 
-    Returns:
         str -- string with all the options given in arguments
     """
     assert type(tekst) is str
@@ -53,6 +52,6 @@ def stedtxt(tekst, space, space_irr, lowercase, errors, info, write):
 if __name__ == '__main__':
     print(stedtxt("ala ,  ma  kota .a kot( ma Ale ). a ja np. nie . Proces Norymberski nie odbyl sie według ustalonej konwencji. \
               Obi Wan nie zrobił niszego śle.",
-                  space=True, space_irr=True, lowercase=True, errors=True, info=True, write=True))
+                  space=True, space_irr=True, lowercase=True, errors=True, info=True, write=False))
 
 # In[ ]:

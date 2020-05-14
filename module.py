@@ -2,6 +2,8 @@
 # coding: utf-8
 
 # In[10]:
+import codecs
+import os
 separators = "\"\\!?.,{};:'\n()[-–|'<>«»~%“”„”_=*¯#+/]\f\t\r\v"
 
 
@@ -80,7 +82,7 @@ def check_mistakes(tekst):
         tekst = tekst.replace(el, " ")
 
     tekst = tekst.lower().split()
-    with open("odm.txt") as file:
+    with open("odm.txt", encoding="utf-8") as file:
         dictionary = file.read()
 
     mistakes = []
@@ -141,8 +143,21 @@ def write_txt(path, tekst):
         path (str) -- path to given folder
         tekst (str) -- text with info, mistakes and formated text
     """
+    fname = str(path) + "/" + "sted.txt"
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print("Path is created")
+        with open(fname, "w", encoding="utf-8") as x:
+            x.write(tekst)
+    else:
+        print("Are sure you want to overwrite that file? [Y/N]")
+        answer = str(input())
+        if answer == "Y":
+            with open(fname, "w", encoding="utf-8") as x:
+                x.write(tekst)
+        elif answer == "N":
+            return tekst
+        else:
+            print("Answer is not correct, try again")
 
-    with open(path, "wt") as file:
-        file.write(tekst)
-
-# In[ ]:
+  # In[ ]:

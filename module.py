@@ -53,7 +53,10 @@ def args():
 
 def text_open(tekst):
     """
-    Opens txt file 
+    Opens text file
+
+    Arguments:
+        tekst (str) --  tekst file to be opened
     """
 
     with open(tekst, "rt", encoding="utf-8") as file:
@@ -196,12 +199,12 @@ def info(tekst):
 def write_txt(path, tekst):
     """
     writes txt files with errors, formated text and info about said text
-
     Arguments:
         path (str) -- path to given folder
         tekst (str) -- text with info, mistakes and formated text
     """
-    fname = str(path) + "/" + "sted.txt"
+    file_name = input("Enter file name: ")
+    fname = str(path) + "/" + f"{file_name}.txt"
     if not os.path.exists(path):
         os.makedirs(path)
         print("Path is created")
@@ -210,12 +213,15 @@ def write_txt(path, tekst):
     else:
         print("Are sure you want to overwrite that file? [Y/N]")
         answer = str(input())
-        if answer == "Y":
+        if answer == "Y" or "y":
             with open(fname, "w", encoding="utf-8") as x:
                 x.write(tekst)
-        elif answer == "N":
+        elif answer == "N" or "n":
             return tekst
         else:
             print("Answer is not correct, try again")
 
   # In[ ]:
+
+
+# %%

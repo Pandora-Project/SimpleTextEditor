@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -49,8 +50,11 @@ def stedtxt(tekst, space=False, space_irr=False, lowercase=False, errors=False, 
         elif info:
             tekst = str(information) + str(tekst)
         if write:
-            module.write_txt(pathlib.Path().absolute(), tekst)
-            return ("File succesfully saved")
+            x = module.write_txt(pathlib.Path().absolute(), tekst)
+            if x == tekst:
+                return(tekst)
+            else:
+                return ("File sucesfully saved")
         else:
             return tekst
 

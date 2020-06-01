@@ -12,12 +12,13 @@ import module
 import pathlib
 
 
-def stedtxt(tekst, space=False, space_irr=False, lowercase=False, errors=False, info=False, write=False):
+def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, errors=False, info=False, write=False):
     """
     text editor
 
     Arguments:
         tekst (str) -- text given to format
+        all_in (bool) -- if True: switches to True all other options
         space (bool) -- if True: removes two whitespaces
         space_irr (bool) -- if True: removes spaces not given in right places
         lowercase (bool) -- if True: fixes wrong lowercases
@@ -33,6 +34,8 @@ def stedtxt(tekst, space=False, space_irr=False, lowercase=False, errors=False, 
     if len(tekst) == 1:
         return tekst
     else:
+        if all_in:
+            space = space_irr = lowercase = errors = info = write = True
         if space:
             tekst = module.double_space_remover(tekst)
         if space_irr:

@@ -16,19 +16,22 @@ def args():
     """
     parser = argparse.ArgumentParser(
         description="Python text beautifier. Formats texts.",
-        usage=f"python {sys.argv[0]} path/text [-s] [-sirr] [-lcs] [-e] [-i] [-w path]"
+        usage=f"python {sys.argv[0]} path/text [-a] [-s] [-sirr] [-lcs] [-e] [-i] [-w path]"
     )
     # Input file or text [required]
     parser.add_argument("tekst", metavar="path/text", nargs=1,
                         help="Path to source file/Text itself")
+    # Switches on all options
+    parser.add_argument("-a", "--all_in", required=False, action="store_const", const=True,
+                        default=False, help="Switches on all options")
     # Formats double spaces [optional]
     parser.add_argument("-s", "--spaces", required=False, action="store_const", const=True,
                         default=False, help="Removes exta spaces.")
     # Formats wrong spaces [optional]
-    parser.add_argument("-sirr", "--spaces_irr", required=False, action="store_const", const=True,
+    parser.add_argument("-r", "--spaces_irr", required=False, action="store_const", const=True,
                         default=False, help="Formats spaces in the text.")
     # Formatss capital letters [optional]
-    parser.add_argument("-lcs", "--lowercase", required=False, default=False, action="store_const",
+    parser.add_argument("-l", "--lowercase", required=False, default=False, action="store_const",
                         const=True, help="Capitalizes the letters where it's needed.")
     # Finds errors [optional]
     parser.add_argument("-e", "--errors", required=False, default=False,
@@ -42,13 +45,14 @@ def args():
 
     args = parser.parse_args()
     tekst = args.tekst[0]
+    all_in = args.all_in
     spaces = args.spaces
     spaces_irr = args.spaces_irr
     lowercase = args.lowercase
     errors = args.errors
     info = args.info
     write = args.write
-    return tekst, spaces, spaces_irr, lowercase, errors, info, write
+    return tekst, all_in, spaces, spaces_irr, lowercase, errors, info, write
 
 
 def text_open(tekst):

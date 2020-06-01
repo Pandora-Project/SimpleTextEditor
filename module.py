@@ -96,11 +96,14 @@ def wrong_space_remover(tekst):
     tekst = tekst.replace(" ,", ",").replace(
         " )", ")").replace("( ", "(").replace(" .", ".")
     sentence_end = ".?!,"
-    sentence_end = ",.?!"
+    brackets = "{("
     for i in range(len(tekst)):
         if tekst[i] in sentence_end:
             if tekst[i+1] != " ":
                 tekst = tekst[:i] + tekst[i] + " " + tekst[i+1:]
+        if tekst[i] in brackets:
+            if tekst[i-1] != " ":
+                tekst = tekst[:i] + " " + tekst[i] + tekst[i+1:]
     return tekst
 
 

@@ -85,7 +85,7 @@ def double_space_remover(tekst):
 
 def wrong_space_remover(tekst):
     """
-    removes spaces not given in right places
+    removes spaces not given in right places and fixes spaces after .?!,
 
     Arguments:
         tekst (str) -- given text to format
@@ -95,6 +95,12 @@ def wrong_space_remover(tekst):
     """
     tekst = tekst.replace(" ,", ",").replace(
         " )", ")").replace("( ", "(").replace(" .", ".")
+    sentence_end = ".?!,"
+    sentence_end = ",.?!"
+    for i in range(len(tekst)):
+        if tekst[i] in sentence_end:
+            if tekst[i+1] != " ":
+                tekst = tekst[:i] + tekst[i] + " " + tekst[i+1:]
     return tekst
 
 

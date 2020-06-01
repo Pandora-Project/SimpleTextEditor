@@ -20,7 +20,7 @@ def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, 
         tekst (str) -- text given to format
         all_in (bool) -- if True: switches to True all other options
         space (bool) -- if True: removes two whitespaces
-        space_irr (bool) -- if True: removes spaces not given in right places
+        space_irr (bool) -- if True: removes spaces not given in right places and fixes them afet ,.!?
         lowercase (bool) -- if True: fixes wrong lowercases
         errors (bool) -- if True: returns list of mistakes
         info (bool) -- if True: gives info on formated text
@@ -65,5 +65,3 @@ def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, 
 if __name__ == '__main__':
     args = module.args()
     print(stedtxt(*args))
-
-# In[ ]:

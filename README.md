@@ -2,7 +2,7 @@
 
 Arguments:
 -s (removes extra white spaces)
--r (removes spaces in wrong places)
+-r (removes spaces in wrong places and makes spaces after .,?!)
 -l (fixes lowercases)
 -e (checks text for errors)
 -i (lists infromation about text)

@@ -99,18 +99,19 @@ def wrong_space_remover(tekst):
     brackets = "{("
     for i in range(len(tekst)):
         if tekst[i] in sentence_end:
-            if tekst[i+1] != " ":
-                tekst = tekst[:i] + tekst[i] + " " + tekst[i+1:]
+            if tekst[i] != tekst[-1]:
+                if tekst[i+1] != " ":
+                    tekst = tekst[:i] + tekst[i] + " " + tekst[i+1:]
         if tekst[i] in brackets:
             if tekst[i-1] != " ":
                 tekst = tekst[:i] + " " + tekst[i] + tekst[i+1:]
+    tekst = tekst.replace(". . .", "...")
     return tekst
 
 
 def lowercase_fixer(tekst):
     """
-    if letter after dot or dot and space is lowercase it will fix it
-    with exceptions
+    if letter after dot or dot and space is lowercase it will fix it with exceptions
 
     Arguments:
         tekst (str) -- given text to format
@@ -226,10 +227,10 @@ def write_txt(path, tekst):
     else:
         print("Are sure you want to overwrite that file? [Y/N]")
         answer = str(input())
-        if answer == "Y" or "y":
+        if answer == "Y" or answer == "y":
             with open(fname, "w", encoding="utf-8") as x:
                 x.write(tekst)
-        elif answer == "N" or "n":
+        elif answer == "N" or answer == "n":
             return tekst
         else:
             print("Answer is not correct, try again")

@@ -99,8 +99,8 @@ def wrong_space_remover(tekst):
     brackets = "{("
     for i in range(len(tekst)):
         if tekst[i] in sentence_end:
-            if tekst[i] != tekst[-1]:
-                if tekst[i+1] != " ":
+            if i != len(tekst)-1:
+                if tekst[i+1] != " " and tekst[i+1] != ".":
                     tekst = tekst[:i] + tekst[i] + " " + tekst[i+1:]
         if tekst[i] in brackets:
             if tekst[i-1] != " ":
@@ -237,5 +237,8 @@ def write_txt(path, tekst):
 
   # In[ ]:
 
+
+# %%
+tekst = "ala, ma  kota.a kot (ma Ale). a ja np. nie. Proces Norymberski nie odbyl sie według ustalonej konwencji."
 
 # %%

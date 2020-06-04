@@ -5,6 +5,7 @@
 import codecs
 import os
 import sys
+import pathlib
 import argparse
 
 separators = "\"\\!?.,{};:'\n()[-–|'<>«»~%“”„”_=*¯#+/]\f\t\r\v"
@@ -16,7 +17,7 @@ def args():
     """
     parser = argparse.ArgumentParser(
         description="Python text beautifier. Formats texts.",
-        usage=f"python {sys.argv[0]} path/text [-a] [-s] [-sirr] [-lcs] [-e] [-i] [-w path]"
+        usage=f"python {sys.argv[0]} path/text [-o] [-a] [-s] [-sirr] [-lcs] [-e] [-i] "
     )
     # Input file or text [required]
     parser.add_argument("tekst", metavar="path/text", nargs=1,
@@ -40,8 +41,8 @@ def args():
     parser.add_argument("-i", "--info", required=False, default=False, action="store_const",
                         const=True, help="Returns the info about the text.")
     # Writes to file [optional]
-    parser.add_argument("-w", "--write", required=False, metavar="path",
-                        default=None, help="Path to output file('.txt')")
+    parser.add_argument("-o", "--outpath", required=False, action="store_const", const=True,
+                        default=False, help="Path to output file('.txt')")
 
     args = parser.parse_args()
     tekst = args.tekst[0]
@@ -51,8 +52,8 @@ def args():
     lowercase = args.lowercase
     errors = args.errors
     info = args.info
-    write = args.write
-    return tekst, all_in, spaces, spaces_irr, lowercase, errors, info, write
+    outpath = args.outpath
+    return tekst, all_in, spaces, spaces_irr, lowercase, errors, info, outpath
 
 
 def text_open(tekst):
@@ -210,7 +211,7 @@ def info(tekst):
     return text_info
 
 
-def write_txt(path, tekst):
+def write_txt(tekst, path):
     """
     writes txt files with errors, formated text and info about said text
     Arguments:
@@ -218,6 +219,9 @@ def write_txt(path, tekst):
         tekst (str) -- text with info, mistakes and formated text
     """
     file_name = input("Enter file name: ")
+    print(path)
+    if file_name == "":
+        file_name = "out"
     fname = str(path) + "/" + f"{file_name}.txt"
     if not os.path.exists(path):
         os.makedirs(path)
@@ -225,20 +229,15 @@ def write_txt(path, tekst):
         with open(fname, "w", encoding="utf-8") as x:
             x.write(tekst)
     else:
-        print("Are sure you want to overwrite that file? [Y/N]")
+        print("Are sure you want to overwrite that file? [Y/n]")
         answer = str(input())
-        if answer == "Y" or answer == "y":
+        if answer == "Y" or answer == "y" or answer == None:
             with open(fname, "w", encoding="utf-8") as x:
-                x.write(tekst)
+                return x.write(tekst)
         elif answer == "N" or answer == "n":
             return tekst
         else:
             print("Answer is not correct, try again")
+            write_txt(tekst, path)
 
   # In[ ]:
-
-
-# %%
-tekst = "ala, ma  kota.a kot (ma Ale). a ja np. nie. Proces Norymberski nie odbyl sie według ustalonej konwencji."
-
-# %%

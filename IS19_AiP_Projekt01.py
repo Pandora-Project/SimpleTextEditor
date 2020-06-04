@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -12,7 +11,7 @@ import module
 import pathlib
 
 
-def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, errors=False, info=False, write=False):
+def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, errors=False, info=False, outpath=False):
     """
     text editor
 
@@ -24,7 +23,7 @@ def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, 
         lowercase (bool) -- if True: fixes wrong lowercases
         errors (bool) -- if True: returns list of mistakes
         info (bool) -- if True: gives info on formated text
-        write (bool) -- if True: writes return to .txt
+        outpath (bool) -- if True: writes return to .txt
 
 
         str -- string with all the options given in arguments
@@ -35,7 +34,7 @@ def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, 
         return tekst
     else:
         if all_in:
-            space = space_irr = lowercase = errors = info = write = True
+            space = space_irr = lowercase = errors = info = True
         if space:
             tekst = module.double_space_remover(tekst)
         if space_irr:
@@ -52,12 +51,12 @@ def stedtxt(tekst, all_in=False, space=False, space_irr=False, lowercase=False, 
             tekst = str(error) + str(tekst)
         elif info:
             tekst = str(information) + str(tekst)
-        if write:
-            x = module.write_txt(pathlib.Path().absolute(), tekst)
+        if outpath:
+            x = module.write_txt(tekst, pathlib.Path().absolute())
             if x == tekst:
-                return(tekst)
+                return tekst
             else:
-                return ("File sucesfully saved")
+                return "File sucesfully saved"
         else:
             return tekst
 

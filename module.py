@@ -231,7 +231,7 @@ def write_txt(tekst, path):
     else:
         print("Are sure you want to overwrite that file? [Y/n]")
         answer = str(input())
-        if answer == "Y" or answer == "y" or answer == None:
+        if answer == "Y" or answer == "y" or answer == "":
             with open(fname, "w", encoding="utf-8") as x:
                 return x.write(tekst)
         elif answer == "N" or answer == "n":
